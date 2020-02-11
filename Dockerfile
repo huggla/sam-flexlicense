@@ -9,11 +9,13 @@ ARG SaM_VERSION="2.0.0"
 ARG IMAGETYPE="application"
 ARG ALPINE_GLIBC_VERSION="2.30-r0"
 ARG DOWNLOADS="https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$ALPINE_GLIBC_VERSION/glibc-$ALPINE_GLIBC_VERSION.apk https://downloads.safe.com/fme/floatingLicense/fme-flexnet-linux-x64.tar.gz"
+ARG MAKEDIRS="/usr/tmp"
+ARG GID0WRITABLES="/usr/tmp"
 ARG BUILDCMDS=\
 "   cp -a sgerrand.rsa.pub /etc/apk/keys/ "\
 "&& apk --repositories-file /etc/apk/repositories --keys-dir /etc/apk/keys --no-cache --initramfs-diskless-boot --clean-protected --root /finalfs add glibc-$ALPINE_GLIBC_VERSION.apk "\
-"&& cp -a FlexServer*/lmgrd /finalfs/usr/bin/"
-ARG STARTUPEXECUTABLES="/usr/bin/lmgrd"
+"&& cp -a FlexServer*/lmgrd FlexServer*/safe /finalfs/usr/bin/"
+ARG STARTUPEXECUTABLES="/usr/bin/lmgrd /usr/bin/safe"
 # ARGs (can be passed to Build/Final) </END>
 
 # Generic template (don't edit) <BEGIN>
@@ -40,7 +42,7 @@ COPY --from=build /finalfs /
 ENV VAR_LINUX_USER="user" \
     VAR_FINAL_COMMAND='/usr/local/bin/lmgrd -c $LICENSE_FILE' \
     VAR_LICENSE_FILE="/license/license.lic"
-
+    
 # Generic template (don't edit) <BEGIN>
 USER starter
 ONBUILD USER root
