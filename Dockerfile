@@ -37,7 +37,9 @@ COPY --from=build /finalfs /
 # =========================================================================
 # Final
 # =========================================================================
-
+ENV VAR_LINUX_USER="user" \
+    VAR_FINAL_COMMAND='/usr/local/bin/lmgrd -c $LICENSE_FILE' \
+    VAR_LICENSE_FILE="/license/license.lic"
 
 # Generic template (don't edit) <BEGIN>
 USER starter
