@@ -5,7 +5,7 @@
 # Init
 # =========================================================================
 # ARGs (can be passed to Build/Final) <BEGIN>
-ARG SaM_VERSION="2.0.0"
+ARG SaM_VERSION="2.0.1"
 ARG IMAGETYPE="application"
 ARG ALPINE_GLIBC_VERSION="2.30-r0"
 ARG RUNDEPS="libgcc"
